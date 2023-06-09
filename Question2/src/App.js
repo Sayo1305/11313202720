@@ -1,9 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import HomePage from './page/HomePage';
+import SearchPage from './page/SearchPage';
 
 function App() {
   return (
-    <div className="w-full h-screen">
-      <div className="bg-black text-red-900">Train Info App</div>
+    <div>
+      <Routes>
+        <Route path='/' element={<HomePage/>}></Route>
+        <Route path='/train' element={<SearchPage/>}></Route>
+      </Routes>
     </div>
   );
 }
