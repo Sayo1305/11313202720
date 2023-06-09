@@ -78,3 +78,38 @@ function sortdata(data, type) {
     });
   }
 }
+
+
+exports.getTrain = async(req , res)=>{
+  const type = req.params.number;
+  try {
+    const url = `http://104.211.219.98/train/trains/${type}`;
+    const token = process.env.Auth_Token;
+    let arr = [];
+    let resarr = [];
+    await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      rejectUnauthorized: false,
+      requestCert: true,
+      agent: false,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        arr = data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    if (arr) {
+      resarr = arr;
+      res.send({ data: resarr });
+    } else {
+      res.send({ data: "error" });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
